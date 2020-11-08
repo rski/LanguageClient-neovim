@@ -80,6 +80,34 @@ Add this plugin to vim/neovim `runtimepath`,
 set runtimepath+=~/.vim-plugins/LanguageClient-neovim
 ```
 
+## Manual - from source
+
+Clone this repo into some place, e.g., `~/.vim-plugins`
+
+```sh
+mkdir -p ~/.vim-plugins
+cd ~/.vim-plugins
+git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git
+cd LanguageClient-neovim
+# nix users can nix-shell at this point
+cargo build
+```
+
+Add this plugin to vim/neovim `runtimepath`,
+
+```vim
+set runtimepath+=~/.vim-plugins/LanguageClient-neovim
+let g:LanguageClient_binaryPath = expand("~/.vim-plugins/LanguageClient-neovim/target/debug/languageclient")
+```
+
+Note that if you build with `cargo build --release`, `LanguageClient_binaryPath` needs to point to `target/release/languageclient`.
+
+Instead of setting `LanguageClient_binaryPath`, it's also possible to leave it unset and symlink the compiled binary to `~/.vim-plugins/LanguageClient-neovim/bin` like so:
+
+```sh
+ln -s ~/.vim-plugins/LanguageClient-neovim/target/debug/languageclient ~/.vim-plugins/LanguageClient-neovim/bin/languageclient
+```
+
 # Install language servers
 
 Install language servers if corresponding language servers are not available
